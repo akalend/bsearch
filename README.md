@@ -1,0 +1,2 @@
+# bsearch
+simple bsearch algorithm
