@@ -1,32 +1,25 @@
+#include <stdint.h>
 
 #ifndef  __BSEARCH_H_
 #define  __BSEARCH_H_
 
 #define OK 			0
-#define FAIL		1
+#define NOT_EXIST	-1
 
 
 #define TRUE		1
 #define FALSE		0
 
-typedef struct  {
-	uint16_t key;
-} ht_element;
-
-
-
 /**
-@brief добавление данных в хеш-таблицу
-@param ht*
-@param key
-@param value
-@return HT_RETUN_CODE
-Добавляются данные в хеш-таблицу. 
-Функция возвращает код:
- HT_OK 		вставка прошла успешно
- HT_EXITS	данные уже были вставлены ранее
- HT_ERROR 	ошибка переполнения
+@brief двоичный поиск по упорядоченному массиву
+
+@param int* 	массив элементов
+@param size_t 	размер массива элементов
+@param serch	значение элемента, которое необходимо найти
+@return int   индекс следующего найденного элемента или NOT_EXIST
 */
+int
+bsearch_next(int* arr, size_t size, int search);
 
 
 

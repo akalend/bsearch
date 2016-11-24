@@ -1,6 +1,6 @@
 main: bsearch.o unit.o
 	gcc  -g -c -o test.o -O3 test.c
-	gcc  -o test -O3 bsearch.o unit.o test.o
+	gcc  -o test bsearch.o unit.o test.o
 
 bsearch.o:
 	gcc -g -o bsearch.o -c  -O3  ../src/bsearch.c
