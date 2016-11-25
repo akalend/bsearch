@@ -13,13 +13,15 @@ test_check(void)
 	header();
 
 
-	int in[] = {1,2,3,5 ,7,7, 10, 11, 12, 15, 17,17, 17, 17, 19, 21,22,23,25,27,31};
+	int in[] = {1,2,2,2,3,5 ,7,7, 10, 11, 12, 15, 17,17, 17, 17, 19, 21,22,23,25,27,31};
 
 	size_t size = sizeof(in) / sizeof(in[0]);
 
 	int res = bsearch_next((int*)&in, size, 31);
 
-	// is(res , NOT_EXIST, "result %d", res);
+
+	res = bsearch_next((int*)&in, size, 27);
+
 	
 	res = bsearch_next((int*)&in, size, 7);
 
