@@ -27,14 +27,14 @@ _bsearch(int* arr, int search, int* index, int delta, size_t size) {
 	}
 
 	if (delta >= size) {
-		printf("return 2 NOT_EXIST\n");
+		printf("ERROR\n");
 		return NOT_EXIST;
 	}
 
 	if (search < arr[*index]) {
-		*index -= delta;
-	} else if (search > arr[*index]) {
 		*index += delta;
+	} else if (search > arr[*index]) {
+		*index -= delta;
 	} else {
 		printf( "find search[%d]=%d\n", delta,search);
 		int res = find_next(arr, size, search, delta);
