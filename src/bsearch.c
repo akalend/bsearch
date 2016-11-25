@@ -15,7 +15,6 @@ find_next(int* arr, size_t size, int search, int current ) {
 static int
 _bsearch(int* arr, int search, int* index, int delta, size_t size) {
 	
-
 	// if (*index >= size) {
 	// 	printf("return 1 NOT_EXIST\n");
 	// 	return NOT_EXIST;
@@ -32,9 +31,9 @@ _bsearch(int* arr, int search, int* index, int delta, size_t size) {
 		return NOT_EXIST;
 	}
 
-	if (search < arr[delta]) {
+	if (search < arr[*index]) {
 		*index -= delta;
-	} else if (search > arr[delta]) {
+	} else if (search > arr[*index]) {
 		*index += delta;
 	} else {
 		printf( "find search[%d]=%d\n", delta,search);
@@ -43,7 +42,7 @@ _bsearch(int* arr, int search, int* index, int delta, size_t size) {
 		return res;
 	}
 
-	printf("[%d] idx=%d delta=%d \n", arr[delta],*index, delta);
+	printf("[%d] idx=%d delta=%d \n", arr[*index],*index, delta);
 	int res = _bsearch(arr, search, index, delta, size);
 
 	return res;
