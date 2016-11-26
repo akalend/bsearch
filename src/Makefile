@@ -1,9 +1,11 @@
-main: bsearch.o
-	gcc  -g -c -o main.o -O3 main.c
-	gcc  -o test -O3 ht.o main.o
+main: bsearch.o main.o 
+	gcc  -o test -O3 ht.o main.o -lm
+
+main.o:
+	gcc -c -o main.o -O3 main.c
 
 bsearch.o:
-	gcc  -g -o ht.o -c  -O3  bsearch.c
+	gcc -o ht.o -c  -O3  bsearch.c
 
 
 clean:

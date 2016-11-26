@@ -1,11 +1,23 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "bsearch.h"
 
+typedef struct  {
+	int* arr;
+	int size;
+	int search;
+	int current;
+	int delta;
+} ctx_bsearch;
+
+
+
 inline int
-find_next(int* arr, size_t size, int search, int current ) {
+find_next(int* arr, size_t size, int search, int current ) 
+{
 	while(++current < size) {
 		if (arr[current] > search) return current;
 	}
@@ -13,37 +25,36 @@ find_next(int* arr, size_t size, int search, int current ) {
 }
 
 static int
-_bsearch(int* arr, int search, int* index, int delta, size_t size) {
+_bsearch(ctx_bsearch* ctx)
+{
 	
-	// if (*index >= size) {
-	// 	printf("return 1 NOT_EXIST\n");
-	// 	return NOT_EXIST;
-	// }
+	if (ctx->delta == 1){	
+		return find_next(ctx->arr, ctx->size, ctx->search, ctx->current);
+	}
 
- 	delta = delta / 2;
+ 	int delta = (ctx->delta / 2);
+ 	delta = delta > 2 ? delta + 1 : delta;
+ 	int index = ctx->current;
 
 	if (!delta) {
 		return NOT_EXIST;
 	}
 
-	if (delta >= size) {
-		printf("ERROR\n");
+	if (delta >= ctx->size) {
 		return NOT_EXIST;
 	}
 
-	if (search < arr[*index]) {
-		*index += delta;
-	} else if (search > arr[*index]) {
-		*index -= delta;
-	} else {
-		printf( "find search[%d]=%d\n", delta,search);
-		int res = find_next(arr, size, search, delta);
-		printf( "find_next[%d]=%d\n", res, arr[res] );
+	if (ctx->search < ctx->arr[ctx->current]) {
+		ctx->current -= delta;
+	} else if (ctx->search > ctx->arr[ctx->current]) {
+		ctx->current += delta;
+	} else {		
+		int res = find_next(ctx->arr, ctx->size, ctx->search, delta);
 		return res;
 	}
 
-	printf("[%d] idx=%d delta=%d \n", arr[*index],*index, delta);
-	int res = _bsearch(arr, search, index, delta, size);
+	ctx->delta = delta;
+	int res = _bsearch(ctx);
 
 	return res;
 }
@@ -52,29 +63,31 @@ _bsearch(int* arr, int search, int* index, int delta, size_t size) {
 int
 bsearch_next(int* arr, size_t size, int search) {
 
-	printf("-----------------\n");
-	printf("find:%d\n", search);
 
+	/*
+	если искомый элемент больше последнего элемента, то решения нет
+	*/
 	if (search >= arr[size-1]) {
-		printf("return NOT_EXIST\n");
 		return NOT_EXIST;
 	}
 
 	/*
-	если поиск меньше первого элемента то выводим первыый элемент
-	index = 0
+	если искомый элемент меньше первого элемента то выводим первыый элемент
+	current = 0
 	*/
 	if (search < arr[0]) {
-		printf("return 0\n");
 		return 0;
 	}
 
+	int current = ceil(size / 2);
 
-	int index = size / 2;
-	int res = _bsearch(arr, search, &index, index, size);
+	ctx_bsearch ctx;
 
-
-	printf("return %d\n", res);
-
-	return 0;
+	ctx.arr = arr;
+	ctx.size = size;
+	ctx.search = search;
+	ctx.current = current;
+	ctx.delta = current;
+	
+	return _bsearch(&ctx);
 }
