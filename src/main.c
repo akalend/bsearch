@@ -100,5 +100,14 @@ main(int argc, char** argv )
 	res = bsearch_next((int*)&in, size, search);
 	print_res((int*)&in, search, res);
 
+	search = 40;
+	res = bsearch_next((int*)&in, size, search);
+	print_res((int*)&in, search, res);
+
+
+	search = 50;
+	res = bsearch_next((int*)&in, size, search);
+	print_res((int*)&in, search, res);
+
 	return EXIT_SUCCESS;
 } 
