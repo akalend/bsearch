@@ -6,13 +6,12 @@
 #include "bsearch.h"
 
 typedef struct  {
-	int* arr;
-	int size;
-	int search;
-	int current;
-	int delta;
+	int* arr;		// исходный массив
+	int size;		// размер массива
+	int search;		// элемент, который нужно найти
+	int current;	// указатель на текущий элемент массива
+	int delta;		// размер дуги поиска
 } ctx_bsearch;
-
 
 
 inline int
@@ -26,8 +25,7 @@ find_next(int* arr, size_t size, int search, int current )
 
 static int
 _bsearch(ctx_bsearch* ctx)
-{
-	
+{	
 	if (ctx->delta == 1){	
 		return find_next(ctx->arr, ctx->size, ctx->search, ctx->current);
 	}
@@ -88,6 +86,6 @@ bsearch_next(int* arr, size_t size, int search) {
 	ctx.search = search;
 	ctx.current = current;
 	ctx.delta = current;
-	
+
 	return _bsearch(&ctx);
 }

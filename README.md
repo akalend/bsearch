@@ -31,7 +31,6 @@ find 1	 arr[1]=2
 find 2	 arr[4]=5
 find 0	 arr[0]=1
 find -1	 arr[0]=1
-find -1	 arr[0]=1
 find 40	 NOT_EXIST
 find 50	 NOT_EXIST
 
